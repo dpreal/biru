@@ -1,0 +1,13 @@
+name: hello
+version: 1.0
+appVersion: 1.0
+description: test hello
+keywords:
+- test
+home: www.lianyunjue.com
+sources:
+- http://github.com/vipidp/
+maintainers:
+- name: lianyunjue
+  email: lianyunjue@lyj.com
+
