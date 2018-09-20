@@ -1,0 +1,8 @@
+#helloworld image version
+image:
+  registry: 115.231.83.163
+  repository: 115.231.83.163/helloworld
+  tag: latest
+  pullPolicy: IfNotPresent
+
+Port: 80
