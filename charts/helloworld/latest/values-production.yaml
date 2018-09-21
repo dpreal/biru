@@ -1,8 +1,8 @@
 #helloworld image version
 image:
-  registry: 115.231.83.163
-  repository: 115.231.83.163/helloworld
-  tag: latest
+  registry: registry.cn-hangzhou.aliyuncs.com 
+  repository: svipdp/gohello
+  tag: 13
   pullPolicy: IfNotPresent
 
-Port: 80
+#Port: 80
