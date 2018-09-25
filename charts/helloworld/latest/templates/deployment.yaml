@@ -1,21 +1,51 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: gohello 
+  name: {{ include "helloworld.fullname" . }}
   labels:
-    app: gohello
+    app.kubernetes.io/name: {{ include "helloworld.name" . }}
+    helm.sh/chart: {{ include "helloworld.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: 1 
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-default-test
+      app.kubernetes.io/name: {{ include "helloworld.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "helloworld.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-        - name: gohello 
-          image: registry.cn-hangzhou.aliyuncs.com/svipdp/gohttphello:v3
-          imagePullPolicy: IfNotPresent
-          ports: 
-            - containerPort: 38080
-              hostPort: 38080
-
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
