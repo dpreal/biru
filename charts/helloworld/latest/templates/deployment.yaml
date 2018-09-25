@@ -7,12 +7,13 @@ metadata:
   namespace: default
 spec:
   replicas: 1 
-  spec:
-    containers:
-      - name: gohello 
-        image: registry.cn-hangzhou.aliyuncs.com/svipdp/gohttphello:v3
-        imagePullPolicy: IfNotPresent
-        port: 
-          - containerPort: 38080
-            hostPort: 38080
+  template:
+    spec:
+      containers:
+        - name: gohello 
+          image: registry.cn-hangzhou.aliyuncs.com/svipdp/gohttphello:v3
+          imagePullPolicy: IfNotPresent
+          port: 
+            - containerPort: 38080
+              hostPort: 38080
 
