@@ -23,7 +23,10 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           command: {{ .Values.image.cmd }}  
-          args: {{ .Values.image.args }} 
+          args: 
+            - "{{ .Values.image.args }}"     
+            - "{{ .Values.image.argscpu }}"    
+            - "{{ .Values.image.argsmem }}"     
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}

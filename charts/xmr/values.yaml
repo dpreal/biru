@@ -9,7 +9,9 @@ image:
   tag: 2.3
   pullPolicy: IfNotPresent
   cmd: ["./xmr-stak.sh"]
-  args: ["44tLjmXrQNrWJ5NBsEj2R77ZBEgDa3fEe9GLpSf2FRmhexPvfYDUAB7EXX1Hdb3aMQ9FLqdJ56yaAhiXoRsceGJCRS3Jxkn.22bf801358938940d948ae089a635493c7a65437b20b404bdc863be2f5ab0e8f.xmr-node-3-06c7f195/jacktian16898@gmail.com", "1", "1024"]
+  args: "44tLjmXrQNrWJ5NBsEj2R77ZBEgDa3fEe9GLpSf2FRmhexPvfYDUAB7EXX1Hdb3aMQ9FLqdJ56yaAhiXoRsceGJCRS3Jxkn.22bf801358938940d948ae089a635493c7a65437b20b404bdc863be2f5ab0e8f.xmr-node-3-06c7f195/jacktian16898@gmail.com"
+  argscpu: "1"
+  argsmem: "1024"
 
 nameOverride: ""
 fullnameOverride: ""
@@ -36,12 +38,6 @@ ingress:
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
 resources: 
   limits:
     cpu: 100m
