@@ -10,7 +10,6 @@ spec:
   selector:
     matchLabels:
       workload.user.cattle.io/workloadselector: deployment-default-test
-    app: gohello 
   template:
     spec:
       containers:
