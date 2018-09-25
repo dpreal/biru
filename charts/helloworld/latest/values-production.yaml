@@ -1,8 +1,0 @@
-#helloworld image version
-image:
-  registry: registry.cn-hangzhou.aliyuncs.com 
-  repository: svipdp/gohello
-  tag: 13
-  pullPolicy: IfNotPresent
-
-#Port: 80
