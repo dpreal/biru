@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: registry.cn-hangzhou.aliyuncs.com/svipdp/gohello 
-  tag: 13
+  tag: 19
   pullPolicy: IfNotPresent
 
 nameOverride: ""
