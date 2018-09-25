@@ -4,7 +4,6 @@ metadata:
   name: gohello 
   labels:
     app: gohello
-  namespace: default
 spec:
   replicas: 1 
   selector:
