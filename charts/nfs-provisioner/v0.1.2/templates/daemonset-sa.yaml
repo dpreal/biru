@@ -54,4 +54,4 @@ spec:
           hostPath:
             path: {{ .Values.persistence.hostPath }}
       nodeSelector:
-        uid: {{ .Values.persistence.uid }}
+        uid: {{ .Values.persistence.user-node-id }}

@@ -48,7 +48,7 @@ questions:
   type: int
   label: NFS Host Port
   group: "NFS Settings"
-- variable: persistence.uid
+- variable: persistence.user-node-id
   default: "biru"
   required: true
   type: string
