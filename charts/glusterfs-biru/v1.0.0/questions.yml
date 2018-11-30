@@ -14,16 +14,6 @@ questions:
     - "false"
   show_subquestion_if: false
   subquestions:
-  - variable: image.repository
-    default: "quay.io/kubernetes_incubator/nfs-provisioner"
-    description: "Docker image name"
-    type: string
-    label: NFS Image Name
-  - variable: image.tag
-    default: "v1.0.8"
-    description: "NFS image tag"
-    type: string
-    label: Image Tag
 - variable: persistence.defaultClass
   default: "true"
   description: "set as default Storage Class"
@@ -41,16 +31,3 @@ questions:
   label: NFS Host Path
   required: true
   group: "NFS Settings"
-- variable: nfs.hostPort
-  default: "2049"
-  required: true
-  description: "specify the host port used for nfs-provisioner server"
-  type: int
-  label: NFS Host Port
-  group: "NFS Settings"
-- variable: persistence.user-node-id
-  default: "biru"
-  required: true
-  type: string
-  label: uid
-

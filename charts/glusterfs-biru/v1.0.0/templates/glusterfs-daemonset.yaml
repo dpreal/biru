@@ -1,18 +1,23 @@
 kind: DaemonSet
 apiVersion: extensions/v1beta1
 metadata:
-  name: glusterfs
+  name: {{ template "glusterfs.fullname" . }} 
   labels:
+    app: {{ template "glusterfs.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
     glusterfs: deployment
   annotations:
-    description: GlusterFS Daemon Set
     tags: glusterfs
 spec:
   template:
     metadata:
-      name: glusterfs
       labels:
+        app: {{ template "nfs.name" . }}
+        release: {{ .Release.Name }}
         glusterfs-node: daemonset
+      name: glusterfs
     spec:
       nodeSelector:
         storagenode: glusterfs

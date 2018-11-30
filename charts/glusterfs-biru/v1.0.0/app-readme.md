@@ -1,7 +1,7 @@
 # glsuterfs-biru 
 
-nfs-provisioner is an out-of-tree dynamic provisioner for Kubernetes. You can use it to quickly & easily deploy shared storage that works almost anywhere. 
-Or it can help you write your own out-of-tree dynamic provisioner by serving as an example implementation of the requirements detailed in the proposal. 
+glusterfs-biru is glusterfs & heketi
+
 
 ## Introduction
 
