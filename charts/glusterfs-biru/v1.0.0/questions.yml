@@ -23,11 +23,11 @@ questions:
     - "false"
   required: true
   label: Set NFS to Default StorageClass
-  group: "NFS Settings"
+  group: "GlusterFS Settings"
 - variable: persistence.hostPath
   default: "/srv"
   description: "for GKE uses /home/kubernetes/nfs/ instead, custom nfs host path read and write permission are required, default to /srv"
   type: string
   label: NFS Host Path
   required: true
-  group: "NFS Settings"
+  group: "GlusterFS Settings"

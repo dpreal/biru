@@ -1,7 +1,7 @@
 kind: DaemonSet
 apiVersion: extensions/v1beta1
 metadata:
-  name: {{ template "glusterfs.fullname" . }} 
+  name: glusterfs 
   labels:
     app: {{ template "glusterfs.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
