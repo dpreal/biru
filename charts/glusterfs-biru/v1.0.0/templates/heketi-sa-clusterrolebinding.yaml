@@ -10,6 +10,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: heketi-service-account-{{ template "glusterfs.fullname" . }}
+  namespace: {{ .Release.Namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
