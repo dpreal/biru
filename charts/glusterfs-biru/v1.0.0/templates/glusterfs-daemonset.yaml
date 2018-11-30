@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "nfs.name" . }}
+        app: {{ template "glusterfs.name" . }}
         release: {{ .Release.Name }}
         glusterfs-node: daemonset
       name: glusterfs
