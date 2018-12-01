@@ -1,64 +1,82 @@
+---
+kind: Service
 apiVersion: v1
-kind: ConfigMap
 metadata:
-  name: heketi-topology
-  namespace: {{ .Release.Namespace }} 
-data:
-  topology.yaml: |-
-    {
-      "clusters": [
-        {
-          "nodes": [
-            {
-              "node": {
-                "hostnames": {
-                  "manage": [
-                    "node1"
-                  ],
-                  "storage": [
-                    "192.168.1.1"
-                  ]
-                },
-                "zone": 1
-              },
-              "devices": [
-                "/dev/sda3"
-              ]
-            },
-            {
-              "node": {
-                "hostnames": {
-                  "manage": [
-                    "node2"
-                  ],
-                  "storage": [
-                    "192.168.1.2"
-                  ]
-                },
-                "zone": 1
-              },
-              "devices": [
-                "/dev/sda3"
-              ]
-            },
-            {
-              "node": {
-                "hostnames": {
-                  "manage": [
-                    "node3"
-                  ],
-                  "storage": [
-                    "192.168.1.3"
-                  ]
-                },
-                "zone": 1
-              },
-              "devices": [
-                "/dev/sda3"
-              ]
-            }
-          ]
-        }
-      ]
-    }
-
+  name: deploy-heketi
+  labels:
+    glusterfs: heketi-service
+    deploy-heketi: support
+  annotations:
+    description: Exposes Heketi Service
+spec:
+  selector:
+    name: deploy-heketi
+  ports:
+  - name: deploy-heketi
+    port: 8080
+    targetPort: 8080
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: deploy-heketi
+  labels:
+    glusterfs: heketi-deployment
+    deploy-heketi: deployment
+  annotations:
+    description: Defines how to deploy Heketi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: deploy-heketi
+      labels:
+        name: deploy-heketi
+        glusterfs: heketi-pod
+        deploy-heketi: pod
+    spec:
+      serviceAccountName: heketi-sa
+      containers:
+      - image: heketi/heketi:8
+        imagePullPolicy: Always
+        name: deploy-heketi
+        env:
+        - name: HEKETI_EXECUTOR
+          value: kubernetes
+        - name: HEKETI_DB_PATH
+          value: "/var/lib/heketi/heketi.db"
+        - name: HEKETI_FSTAB
+          value: "/var/lib/heketi/fstab"
+        - name: HEKETI_SNAPSHOT_LIMIT
+          value: '14'
+        - name: HEKETI_KUBE_GLUSTER_DAEMONSET
+          value: "y"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: db
+          mountPath: "/var/lib/heketi"
+        - name: config
+          mountPath: "/etc/heketi"
+        - name: topology-vol
+          mountPath: "/home/topology"
+        readinessProbe:
+          timeoutSeconds: 3
+          initialDelaySeconds: 3
+          httpGet:
+            path: "/hello"
+            port: 8080
+        livenessProbe:
+          timeoutSeconds: 3
+          initialDelaySeconds: 30
+          httpGet:
+            path: "/hello"
+            port: 8080
+      volumes:
+      - name: db
+      - name: config
+        secret:
+          secretName: heketi-config-secret
+      - name: topology-vol
+        configMap:
+          name: heketi-topology
