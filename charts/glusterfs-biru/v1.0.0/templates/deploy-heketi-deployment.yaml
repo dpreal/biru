@@ -59,8 +59,8 @@ spec:
           mountPath: "/var/lib/heketi"
         - name: config
           mountPath: /etc/heketi
-        - mountPath: /home/
-          name: heketi-topology
+        - name: heketi-topology
+          mountPath: /home/
         readinessProbe:
           timeoutSeconds: 3
           initialDelaySeconds: 3
@@ -80,6 +80,5 @@ spec:
           secretName: heketi-config-secret
       - name: heketi-topology
         configMap:
-          defaultMode: 256
           name: heketi-topology
           optional: false
