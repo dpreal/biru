@@ -34,7 +34,7 @@ spec:
         glusterfs: heketi-pod
         deploy-heketi: pod
     spec:
-      serviceAccountName: heketi-service-account
+      serviceAccountName: heketi-sa-{{ template "glusterfs.fullname" . }}
       containers:
       - image: heketi/heketi:dev
         imagePullPolicy: IfNotPresent
@@ -59,6 +59,8 @@ spec:
           mountPath: "/var/lib/heketi"
         - name: config
           mountPath: /etc/heketi
+        - mountPath: /home/
+          name: heketi-topology
         readinessProbe:
           timeoutSeconds: 3
           initialDelaySeconds: 3
@@ -76,3 +78,8 @@ spec:
       - name: config
         secret:
           secretName: heketi-config-secret
+      - name: heketi-topology
+        configMap:
+          defaultMode: 256
+          name: heketi-topology
+          optional: false
