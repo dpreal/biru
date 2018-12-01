@@ -34,7 +34,7 @@ spec:
         glusterfs: heketi-pod
         deploy-heketi: pod
     spec:
-      serviceAccountName: heketi-sa-{{ template "glusterfs.fullname" . }}
+      serviceAccountName: heketi-sa
       containers:
       - image: heketi/heketi:8
         imagePullPolicy: IfNotPresent
