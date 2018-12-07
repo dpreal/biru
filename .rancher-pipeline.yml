@@ -4,4 +4,9 @@ stages:
   - runScriptConfig:
       image: golang:latest
       shellScript: build .
+- name: publish
+  steps:
+  - runScriptConfig:
+      image: golang:latest
+      shellScript: echo "hello world !"
 timeout: 60
