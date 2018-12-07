@@ -1,1 +1,7 @@
+stages:
+- name: build
+  steps:
+  - runScriptConfig:
+      image: golang:latest
+      shellScript: build .
 timeout: 60
